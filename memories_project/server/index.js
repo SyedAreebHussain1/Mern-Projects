@@ -3,14 +3,19 @@
 // import mongoose from 'mongoose'
 // import cors from 'cors'
 // import http from 'http'
+// import postRoutes from './routes/posts'
+
+
 
 const express = require("express")
 const cors = require("cors")
 const bd = require("body-parser")
 const mongoose = require("mongoose")
-
+const postRoutes = require('./routes/posts')
 const app = express()
 
+
+app.use('/posts', postRoutes)
 app.use(bd.json({ limit: "30mb", extended: true }))
 app.use(bd.urlencoded({ limit: "30mb", extended: true }))
 
