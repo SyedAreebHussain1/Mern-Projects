@@ -1,12 +1,3 @@
-// import express from 'express'
-// import bodyParser from 'body-parse'
-// import mongoose from 'mongoose'
-// import cors from 'cors'
-// import http from 'http'
-// import postRoutes from './routes/posts'
-
-
-
 const express = require("express")
 const cors = require("cors")
 const bd = require("body-parser")

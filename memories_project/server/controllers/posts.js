@@ -1,4 +1,5 @@
 
+const { default: mongoose } = require('mongoose')
 const postMessage = require('../models/postMessage')
 
 const getPosts = async (req, res) => {
@@ -20,5 +21,14 @@ const createPost = async (req, res) => {
         res.status(409).json({ message: error.message })
     }
 }
+const updatePost = async (req, res) => {
+    const { id: _id } = req.params
+    const post = req.body
+    // is not valid 
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id')
+    const updatedPost = postMessage.findByIdAndUpdate(_id, post, { new: true })
 
-module.exports = { getPosts, createPost }
+    res.json(updatedPost)
+}
+
+module.exports = { getPosts, createPost, updatePost }

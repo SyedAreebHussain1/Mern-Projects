@@ -5,6 +5,7 @@ import { fetchPosts, createPosts } from '../api/index'
 export const getPosts = () => async (dispatch) => {
     try {
         const { data } = await fetchPosts()
+        console.log('data',data)
         dispatch({ type: 'FETCH_ALL', payload: data })
     } catch (error) {
         console.log('error', error?.message)

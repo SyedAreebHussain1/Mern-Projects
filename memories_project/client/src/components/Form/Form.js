@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import FileBase from 'react-file-base64';
-import { createPost } from '../../actions/posts';
+import { createPost, getPosts } from '../../actions/posts';
 import useStyles from './styles'
 
 const Form = () => {
@@ -29,8 +29,11 @@ const Form = () => {
             creator: '', title: '', message: '', tags: '', selectedFile: ''
         })
     }
+
     const handleClear = (ev) => {
         ev.preventDefault();
+        // console.log('ss')
+        // dispatch(getPosts())
         form.current.reset();
     }
     return (
