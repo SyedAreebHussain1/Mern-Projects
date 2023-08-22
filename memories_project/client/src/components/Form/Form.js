@@ -1,26 +1,38 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
-import { createPost, getPosts } from '../../actions/posts';
+import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import { createPost, getPosts, updatePost } from '../../actions/posts';
 import useStyles from './styles'
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch()
     const form = useRef(null)
+    let [msg, setMsg] = useState('')
     const [postData, setPostData] = useState({
         creator: '', title: '', message: '', tags: '', selectedFile: ''
     })
-    let [msg, setMsg] = useState('')
+    const statePosts = useSelector((state) => currentId ? state?.posts?.find((a, b) => a?._id === currentId) : '')
     const classes = useStyles()
+    // console.log(statePosts)
+    useEffect(() => {
+        if (postData) {
+            setPostData(statePosts)
+        }
+        // setPostData({ creator: statePosts.creator, title: statePosts.title, message: statePosts.message, tags: statePosts.tags, selectedFile: statePosts.selectedFile })
+    }, [statePosts])
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (postData.creator && postData.title && postData.message && postData.tags && postData.selectedFile) {
-            dispatch(createPost(postData, onSuccess))
-            form.current.reset();
+        if (currentId) {
+            dispatch(updatePost(currentId, postData))
         } else {
-            console.log('All field are requried')
-            setMsg('All field are requried')
+            if (postData?.creator && postData?.title && postData?.message && postData?.tags) {
+                dispatch(createPost(postData, onSuccess))
+                form.current.reset();
+            } else {
+                console.log('All field are requried')
+                setMsg('All field are requried')
+            }
         }
     }
     function onSuccess(msg) {
@@ -29,7 +41,6 @@ const Form = () => {
             creator: '', title: '', message: '', tags: '', selectedFile: ''
         })
     }
-
     const handleClear = (ev) => {
         ev.preventDefault();
         // console.log('ss')
