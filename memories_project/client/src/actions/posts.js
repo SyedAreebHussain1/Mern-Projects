@@ -23,11 +23,11 @@ export const createPost = (post, onSuccess) => async (dispatch) => {
     }
 }
 export const updatePost = (id, post) => async (dispatch) => {
-    console.log('postid',id, post)
+    // console.log('postid',id, post)
     try {
         const { data } = await updatePosts(id, post)
         dispatch({ type: 'UPDATE', payload: data })
-            console.log('data',data)
+            // console.log('data UPDATE',data)
     } catch (error) {
         console.log('error', error?.message)
     }
