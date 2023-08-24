@@ -31,5 +31,20 @@ const updatePost = async (req, res) => {
 
     res.json(updatedPost)
 }
+const deletePost = async (req, res) => {
+    const { id: _id } = req.params
+    const post = req.body
+    // /post/139
+    // is not valid 
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No delete with that id')
+    const deletedPost = await postMessage.deleteOne(_id, (err, collection) => {
+        if (err) throw err;
+        console.log(collection.result.n + " Record(s) deleted successfully");
+        console.log(collection);
+        // db.close()
+    })
 
-module.exports = { getPosts, createPost, updatePost }
+    res.json(deletedPost)
+}
+
+module.exports = { getPosts, createPost, updatePost, deletePost }
