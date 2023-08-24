@@ -21,13 +21,13 @@ const Form = ({ currentId, setCurrentId }) => {
         }
         // setPostData({ creator: statePosts.creator, title: statePosts.title, message: statePosts.message, tags: statePosts.tags, selectedFile: statePosts.selectedFile })
     }, [statePosts])
-    console.log(statePosts);
-    console.log('postData', postData);
+    // console.log(statePosts);
+    // console.log('postData', postData);
     const handleSubmit = (event) => {
         event.preventDefault()
         if (currentId) {
             dispatch(updatePost(currentId, postData))
-            // dispatch(getPosts())
+            setCurrentId(null)
         } else {
             if (postData?.creator && postData?.title && postData?.message && postData?.tags) {
                 dispatch(createPost(postData, onSuccess))
@@ -39,7 +39,7 @@ const Form = ({ currentId, setCurrentId }) => {
         }
     }
     function onSuccess(msg) {
-        // console.log('msg',msg);
+        console.log('msg',msg);
         setPostData({
             creator: '', title: '', message: '', tags: '', selectedFile: ''
         })

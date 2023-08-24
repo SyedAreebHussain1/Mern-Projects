@@ -8,7 +8,9 @@ const app = express()
 
 app.use(bd.json({ limit: "30mb", extended: true }))
 app.use(bd.urlencoded({ limit: "30mb", extended: true }))
-app.use(cors())
+app.use(cors({
+    origin: "*"
+}))
 
 app.use('/posts', postRoutes)
 
