@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getPosts } from './actions/posts'
 import memories from './images/memories.png'
 import Posts from './components/Posts/Posts'
@@ -14,9 +14,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getPosts())
-    console.log('running');
-  }, [dispatch])
-
+  }, [dispatch, currentId])
   return (
     <Container maxWidth='lg'>
       <AppBar className={classes.appBar} position='static' color='inherit'>
@@ -24,8 +22,8 @@ const App = () => {
         <img className={classes.image} src={memories} alt='memories' height='60' />
       </AppBar>
       <Grow in>
-        <Container>
-          <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
+        <Container >
+          <Grid container className={classes.mainContainer} justifyContent='space-between' alignItems='stretch' spacing={3}>
             <Grid item xs={12} sm={7}>
               <Posts setCurrentId={setCurrentId} />
             </Grid>
