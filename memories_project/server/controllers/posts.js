@@ -38,7 +38,7 @@ const deletePost = async (req, res) => {
     await PostMessage.findByIdAndRemove(id)
     res.json({ message: "Post deleted successfully" })
 
-    // my function
+    // my functio
     // const deletedPost = await PostMessage.findByIdAndRemove({ _id: req.params.id })
     // res.json(deletedPost)
 }

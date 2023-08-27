@@ -22,8 +22,6 @@ const postSchema = new Schema({
   
   module.exports = PostMessage;
 
-
-  
 // const userSchema = new mongoose.Schema({
 //     firstName: String,
 //     lastName: String,
