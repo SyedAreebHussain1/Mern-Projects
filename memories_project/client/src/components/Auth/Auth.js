@@ -25,7 +25,9 @@ const Auth = () => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography variant="h5">{isSignup ? "Sign Up" : "Sign In"}</Typography>
+        <Typography component="h1" variant="h5">
+          {isSignup ? "Sign Up" : "Sign In"}
+        </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             {isSignup && (
@@ -35,7 +37,7 @@ const Auth = () => {
                   name="firstName"
                   label="First Name"
                   handleChange={handleChange}
-                  endAdornment
+                //   endAdornment
                   autoFocus
                   half
                 />
@@ -44,8 +46,8 @@ const Auth = () => {
                   name="lastName"
                   label="Last Name"
                   handleChange={handleChange}
-                  endAdornment
-                  autoFocus
+                //   endAdornment
+                //   autoFocus
                   half
                 />
               </>
@@ -55,7 +57,7 @@ const Auth = () => {
               name="email"
               label="Email Address"
               handleChange={handleChange}
-              endAdornment
+            //   endAdornment
               autoFocus
               half
             />
@@ -70,9 +72,23 @@ const Auth = () => {
               half
             />
             {isSignup && (
-              <Input name="confirmPassword" label="Repeat Password" />
+              <Input
+                name="confirmPassword"
+                label="Repeat Password"
+                handleChange={handleChange}
+                type="password"
+              />
             )}
           </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            {isSignup ? "Sign Up" : "Sign In"}
+          </Button>
         </form>
       </Paper>
     </Container>

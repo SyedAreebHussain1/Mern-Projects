@@ -11,7 +11,7 @@ const Input = ({
   type,
   autoFocus,
   handleShowPassword,
-  endAdornment,
+//   endAdornment,
 }) => {
   return (
     <Grid item xs={12} sm={half ? 6 : 12}>
@@ -21,22 +21,22 @@ const Input = ({
         variant="outlined"
         label={label}
         autoFocus={autoFocus}
-        type={type}
-        InputProps={
-          name === "password" ? (
-            // {
-            endAdornment
-          ) : (
-            <InputAdornment position="end">
-              <IconButton onClick={handleShowPassword}>
-                {type === "password" ? <Visibility /> : <VisibilityOff />}
-              </IconButton>
-            </InputAdornment>
-          )
-        }
-        // }
-        required
         fullWidth
+        type={type}
+        required
+        InputProps={
+          name === "password"
+            ? {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleShowPassword}>
+                      {type === "password" ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }
+            : null
+        }
       />
     </Grid>
   );
