@@ -1,6 +1,6 @@
 import { UPDATE, FETCH_ALL, CREATE, DELETE, LIKE } from "../constants";
 export default (posts = [], action) => {
-    console.log('action =>', action.payload);
+    // console.log('action =>', action.payload);
     switch (action.type) {
         case UPDATE:
             return posts.map((val) => val._id === action.payload._id ? action.payload : val)

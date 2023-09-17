@@ -4,6 +4,7 @@ const bd = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const postRoutes = require("./routes/posts");
+const authRoutes = require("./routes/auths")
 const app = express();
 dotenv.config();
 
@@ -16,12 +17,13 @@ app.use(
 );
 
 app.use("/posts", postRoutes);
+app.use("/auths", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello to memories api");
 });
 const CONNECTION_URL =
-  process.env.CONNECTION_URL;
+  process.env.CONNECTION_URL || "mongodb+srv://AreebHusain:mongodbaReeb128@cluster0.ymorhs7.mongodb.net/Memories?retryWrites=true&w=majority"
 const PORT = process.env.PORT || 5000;
 
 mongoose

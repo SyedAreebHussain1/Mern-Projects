@@ -1,4 +1,3 @@
-// import api from '../api/index'
 import { UPDATE, FETCH_ALL, CREATE, DELETE, LIKE } from '../constants/index'
 import { fetchPosts, createPosts, updatePosts, deletePosts, likePosts } from '../api/index'
 

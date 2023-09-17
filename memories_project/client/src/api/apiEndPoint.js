@@ -1,3 +1,4 @@
 export const apiEndPoint = {
-    posts: "posts"
+    posts: "posts",
+    auths: "auths"
 }

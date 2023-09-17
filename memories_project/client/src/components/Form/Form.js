@@ -36,7 +36,7 @@ const Form = ({ currentId, setCurrentId }) => {
     function onSuccess(msg) {
         clear()
     }
-    const clear = () => {
+    function clear() {
         setCurrentId(null)
         setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
         form.current.reset();
