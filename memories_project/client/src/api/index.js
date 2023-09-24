@@ -1,16 +1,17 @@
-import axios from 'axios'
-import { apiEndPoint } from './apiEndPoint'
+import { API } from "./baseUrl";
+import { apiEndPoint } from "./apiEndPoint";
 
 //Destructuring api end point
-const { posts, auths } = apiEndPoint;
+const { posts, auth } = apiEndPoint;
 
 // auth
-export const signups = (newAuths) => axios.post(auths, newAuths);
-
+export const signIn = (formData) => API.post(auth.signin, formData);
+export const signUp = (formData) => API.post(auth.signup, formData);
 
 // post
-export const fetchPosts = () => axios.get(posts);
-export const createPosts = (newPosts) => axios.post(posts, newPosts);
-export const updatePosts = (id, updatedPost) => axios.put(`${posts}/${id}`, updatedPost);
-export const deletePosts = (id) => axios.delete(`${posts}/${id}`);
-export const likePosts = (id) => axios.put(`${posts}/${id}/likePost`);
+export const fetchPosts = () => API.get(posts);
+export const createPosts = (newPosts) => API.post(posts, newPosts);
+export const updatePosts = (id, updatedPost) =>
+  API.put(`${posts}/${id}`, updatedPost);
+export const deletePosts = (id) => API.delete(`${posts}/${id}`);
+export const likePosts = (id) => API.put(`${posts}/${id}/likePost`);

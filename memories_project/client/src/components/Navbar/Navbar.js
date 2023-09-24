@@ -9,20 +9,20 @@ import memories from "../../images/memories.png";
 
 const Navbar = () => {
   const classes = useStyles();
-  const dispatch = useDispatch()
-  const location = useLocation()
-  const navigate = useNavigate()
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
-  console.log('user', user)
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  console.log("user", user);
   function handleLogout() {
-    dispatch({ type: LOGOUT })
-    setUser(null)
-    navigate('/')
+    dispatch({ type: LOGOUT });
+    setUser(null);
+    navigate("/");
   }
   useEffect(() => {
-    const token = user?.token
-    setUser(JSON.parse(localStorage.getItem('profile')))
-  }, [location])
+    const token = user?.token;
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location]);
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>

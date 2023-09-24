@@ -2,7 +2,6 @@ const { default: mongoose } = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const dotenv = require("dotenv");
 
 const signin = async (req, res) => {
   const { email, password } = req.body;
@@ -21,7 +20,7 @@ const signin = async (req, res) => {
     }
     const token = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
-      "worldhello",
+      "test",
       { expiresIn: "1h" }
     );
     res.status(200).json({ result: existingUser, token });
@@ -38,24 +37,22 @@ const signup = async (req, res) => {
       return res.status(400).json({ message: "User Already Exist" });
     }
     if (password !== confirmPassword) {
-      return res.status(400).json({ message: "Passwords dont't match." });
+      return res.status(400).json({ message: "Passwords don't match." });
     }
     const hashedPassword = await bcrypt.hash(password, 12);
     let result = await User.create({
       email,
-      password,
-      hashedPassword,
+      password: hashedPassword,
+      // hashedPassword,
       name: `${firstName} ${lastName}`,
     });
-    const token = jwt.sign(
-      { email: result.email, id: result._id },
-      "worldhello",
-      { expiresIn: "1h" }
-    );
-    res.status(200).json({ result, token });
+    const token = jwt.sign({ email: result.email, id: result._id }, "test", {
+      expiresIn: "1h",
+    });
+    res.status(201).json({ result, token });
   } catch (error) {
     res.status(500).json({ message: "Somethings went wrong." });
   }
 };
 
-module.exports = { signup, signin };
+module.exports = { signin, signup };
