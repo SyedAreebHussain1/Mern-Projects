@@ -4,6 +4,14 @@ import { apiEndPoint } from "./apiEndPoint";
 //Destructuring api end point
 const { posts, auth } = apiEndPoint;
 
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem("profile")) {
+    req.headers.Authorization = `Bearer ${
+      JSON.parse(localStorage.getItem("profile"))?.token
+    }`;
+  }
+});
+
 // auth
 export const signIn = (formData) => API.post(auth.signin, formData);
 export const signUp = (formData) => API.post(auth.signup, formData);
