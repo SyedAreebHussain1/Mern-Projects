@@ -60,10 +60,6 @@ const Auth = () => {
       }
     }
   };
-  // const onSuccess = (msg) => {
-  //   console.log('succ', msg)
-
-  // }
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

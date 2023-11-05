@@ -3,24 +3,31 @@ import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import decode from "jwt-decode"
 import { LOGOUT } from "../../constants";
 import useStyles from "./styles";
 import memories from "../../images/memories.png";
 
 const Navbar = () => {
   const classes = useStyles();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  console.log("user", user);
+
   function handleLogout() {
-    dispatch({ type: LOGOUT });
+    dispatch({ type: LOGOUT })
+    navigate('/auth')
     setUser(null);
-    navigate("/");
   }
   useEffect(() => {
-    const token = user?.token;
+    const token = user?.token
+    if (token) {
+      const decodedToken = decode(token)
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        handleLogout()
+      }
+    }
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
   return (

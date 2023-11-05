@@ -1,7 +1,6 @@
 import { UPDATE, FETCH_ALL, CREATE, DELETE, LIKE } from '../constants/index'
 import { fetchPosts, createPosts, updatePosts, deletePosts, likePosts } from '../api/index'
 
-// Action Creators
 export const getPosts = () => async (dispatch) => {
     try {
         const { data } = await fetchPosts()

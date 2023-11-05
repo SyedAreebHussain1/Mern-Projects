@@ -1,16 +1,17 @@
-import { API } from "./baseUrl";
 import { apiEndPoint } from "./apiEndPoint";
+import axios from "axios";
 
-//Destructuring api end point
+
 const { posts, auth } = apiEndPoint;
+const API = axios.create({ baseURL: "http://localhost:5000/" });
 
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem("profile")) {
-    req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("profile"))?.token
-    }`;
+  if (localStorage.getItem('profile')) {
+    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
   }
+  return req;
 });
+
 
 // auth
 export const signIn = (formData) => API.post(auth.signin, formData);

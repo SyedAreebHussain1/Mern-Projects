@@ -1,5 +1,4 @@
 const { default: mongoose } = require("mongoose");
-// const mongoose = require('mongoose')
 const PostMessage = require("../models/postMessage");
 
 const getPosts = async (req, res) => {
@@ -11,15 +10,8 @@ const getPosts = async (req, res) => {
   }
 };
 const createPost = async (req, res) => {
-  const { title, message, selectedFile, creator, tags } = req.body;
-  // const post = req.body
-  const newPostMessage = new PostMessage({
-    title,
-    message,
-    selectedFile,
-    creator,
-    tags,
-  });
+  const post = req.body
+  const newPostMessage = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() });
   try {
     await newPostMessage.save();
     res.status(201).json(newPostMessage);
@@ -48,10 +40,6 @@ const deletePost = async (req, res) => {
     return res.status(404).send(`No delete with that id: ${id}`);
   await PostMessage.findByIdAndRemove(id);
   res.json({ message: "Post deleted successfully" });
-
-  // my functio
-  // const deletedPost = await PostMessage.findByIdAndRemove({ _id: req.params.id })
-  // res.json(deletedPost)
 };
 const likePost = async (req, res) => {
   const { id } = req.params;
@@ -60,7 +48,6 @@ const likePost = async (req, res) => {
   }
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No like with that id: ${id}`);
-  // await PostMessage.save()
   const post = await PostMessage.findById(id);
 
   const index = post.likes.findIndex((id) => id === String(req.userId));
@@ -74,7 +61,6 @@ const likePost = async (req, res) => {
   }
   const updatedPost = await PostMessage.findByIdAndUpdate(
     id,
-    // { likeCount: post.likeCount + 1 },
     post,
     { new: true }
   );
