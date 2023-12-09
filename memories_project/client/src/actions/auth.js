@@ -19,7 +19,6 @@ export const signup = (formData, navigate, setFormData) => async (dispatch) => {
     dispatch({ type: AUTH, payload: data });
     navigate("/");
     setFormData({});
-    // setIsSignup(false);
   } catch (error) {
     console.log("error", error?.message);
   }
