@@ -51,7 +51,6 @@ const Form = ({ currentId, setCurrentId }) => {
             </Typography>
         </Paper>
     }
-
     return (
         <Paper className={classes.paper}>
             <form autoComplete='off' ref={form} noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
