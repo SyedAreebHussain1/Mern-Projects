@@ -13,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AUTH } from "../../constants";
 import Input from "./Input";
-
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Icon from "./icon";
 import useStyles from "./styles";
@@ -45,9 +44,6 @@ const Auth = () => {
         formData.confirmPassword
       ) {
         dispatch(signup(formData, navigate, setFormData));
-        // form.current.reset();
-        // setFormData({});
-        // setIsSignup((prevIsSignup) => !prevIsSignup);
       } else {
         console.log(formData);
         console.log("all field req frontend");
@@ -81,8 +77,6 @@ const Auth = () => {
     setShowPassword(false);
     form.current.reset();
   };
-  // memoriesapp-399223
-  // Memoriesapp
   const googleSuccess = async (res) => {
     const result = res?.profileObj;
     const token = res?.tokenId;
