@@ -4,10 +4,12 @@ import FileBase from "react-file-base64";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import { createPost, updatePost } from "../../actions/posts";
 import useStyles from "./styles";
+import { useNavigate } from "react-router-dom";
 
 const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const form = useRef(null);
+  const navigate = useNavigate();
   let [msg, setMsg] = useState("");
   const user = JSON.parse(localStorage.getItem("profile"));
   const [postData, setPostData] = useState({
@@ -25,8 +27,8 @@ const Form = ({ currentId, setCurrentId }) => {
       setPostData(statePosts);
     }
   }, [statePosts, currentId]);
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (currentId) {
       dispatch(
         updatePost(currentId, { ...postData, name: user?.result?.name })
@@ -35,7 +37,11 @@ const Form = ({ currentId, setCurrentId }) => {
     } else {
       if (postData?.title && postData?.message && postData?.tags) {
         dispatch(
-          createPost({ ...postData, name: user?.result?.name }, onSuccess)
+          createPost(
+            { ...postData, name: user?.result?.name },
+            onSuccess,
+            navigate
+          )
         );
         form.current.reset();
       } else {

@@ -16,15 +16,16 @@ API.interceptors.request.use((req) => {
 export const signIn = (formData) => API.post(auth.signin, formData);
 export const signUp = (formData) => API.post(auth.signup, formData);
 
-export const fetchPosts = (page) => API.get(`${posts}?page=${page}`);
+export const fetchPosts = (page) => API.get(`posts?page=${page}`);
+export const fetchPost = (id) => API.get(`posts/${id}`);
 export const fetchPostsBySearch = (searchQuery) =>
   API.get(
-    `${posts}/search?searchQuery=${searchQuery.search || "none"}&tags=${
+    `posts/search?searchQuery=${searchQuery.search || "none"}&tags=${
       searchQuery.tags
     }`
   );
 export const createPosts = (newPosts) => API.post(posts, newPosts);
 export const updatePosts = (id, updatedPost) =>
-  API.put(`${posts}/${id}`, updatedPost);
-export const deletePosts = (id) => API.delete(`${posts}/${id}`);
-export const likePosts = (id) => API.put(`${posts}/${id}/likePost`);
+  API.put(`posts/${id}`, updatedPost);
+export const deletePosts = (id) => API.delete(`posts/${id}`);
+export const likePosts = (id) => API.put(`posts/${id}/likePost`);

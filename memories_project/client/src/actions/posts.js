@@ -7,6 +7,7 @@ import {
   FETCH_BY_SEARCH,
   START_LOADING,
   END_LOADING,
+  FETCH_POST,
 } from "../constants/index";
 import {
   fetchPosts,
@@ -15,6 +16,7 @@ import {
   deletePosts,
   likePosts,
   fetchPostsBySearch,
+  fetchPost,
 } from "../api/index";
 
 export const getPosts = (page) => async (dispatch) => {
@@ -39,11 +41,21 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     console.log("error", error?.message);
   }
 };
-
-export const createPost = (post, onSuccess) => async (dispatch) => {
+export const getPost = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await fetchPost(id);
+    dispatch({ type: FETCH_POST, payload: data });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log("error", error?.message);
+  }
+};
+export const createPost = (post, onSuccess, navigate) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const { data } = await createPosts(post);
+    navigate(`/posts/${data?._id}`);
     dispatch({ type: CREATE, payload: data });
     onSuccess(data);
     dispatch({ type: END_LOADING });
